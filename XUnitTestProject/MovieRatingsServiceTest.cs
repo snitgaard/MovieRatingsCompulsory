@@ -20,6 +20,7 @@ namespace XUnitTestProject
         [InlineData(5,2)]
         public void NumberOfMoviesWithGrade(int grade, int expected)
         { 
+            //arrange
             IList<MovieRating> ratings = new List<MovieRating>()
             {
                 new MovieRating(1, 1, 3, DateTime.Now),
@@ -31,6 +32,7 @@ namespace XUnitTestProject
                 new MovieRating(4, 2, 5, DateTime.Now)
             };
 
+            //act 
             Mock<IMovieRatingsRepository> repoMock = new Mock<IMovieRatingsRepository>();
             repoMock.Setup(repo => repo.GetAllMovieRatings()).Returns(() => ratings);
 
@@ -38,6 +40,7 @@ namespace XUnitTestProject
 
             int result = mrs.NumberOfMoviesWithGrade(grade);
 
+            //assert
             Assert.Equal(expected, result);
             repoMock.Verify( repo => repo.GetAllMovieRatings(), Times.Once);
         }
