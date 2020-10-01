@@ -274,7 +274,7 @@ namespace XUnitTestProject
         //Opgave 10
         [Theory]
         [InlineData(2, new int[] {1})]
-        [InlineData(3, new int[] {2,1})]
+        [InlineData(3, new int[] {2,3,1})]
         [InlineData(4, new int[] {1})]
         public void GetTopMoviesByReviewer(int reviewer, int[] expected)
         {
@@ -284,6 +284,7 @@ namespace XUnitTestProject
                 new MovieRating(2, 1, 3, DateTime.Now),
                 new MovieRating(3, 1, 4, DateTime.Now),
                 new MovieRating(3, 2, 5, DateTime.Now),
+                new MovieRating(3, 3, 5, DateTime.Now.AddDays(-1)),
                 new MovieRating(4, 1, 4, DateTime.Now)
             };
 
@@ -310,7 +311,7 @@ namespace XUnitTestProject
             ratings = new List<MovieRating>()
             {
                 new MovieRating(2, 1, 3, DateTime.Now),
-                new MovieRating(3, 1, 4, DateTime.Now),
+                new MovieRating(3, 1, 4, DateTime.Now.AddDays(-1)),
                 new MovieRating(3, 2, 5, DateTime.Now),
                 new MovieRating(4, 1, 4, DateTime.Now),
                 new MovieRating(4, 3, 4, DateTime.Now)
