@@ -16,24 +16,6 @@ namespace MovieRatingsApplication.Core.Services
             RatingsRepository = repo;
         }
 
-        public int NumberOfMoviesWithGrade(int grade)
-        {
-            if (grade < 1 || grade > 5)
-            {
-                throw new ArgumentException("Grade must be 1 - 5");
-            }
-
-            HashSet<int> movies = new HashSet<int>();
-            foreach (MovieRating rating in RatingsRepository.GetAllMovieRatings())
-            {
-                if (rating.Grade == grade)
-                {
-                    movies.Add(rating.Movie);
-                }
-            }
-            return movies.Count;
-        }
-
         //Opgave 1
         public int NumberOfReviewsFromReviewer(int review)
         {
@@ -124,7 +106,6 @@ namespace MovieRatingsApplication.Core.Services
         //Opgave 8
         public List<int> MostProductiveReviewers()
         {
-
             var maxReviews = RatingsRepository.GetAllMovieRatings()
                 .GroupBy(r => r.Reviewer)
                 .Select(group => new
@@ -160,21 +141,23 @@ namespace MovieRatingsApplication.Core.Services
         //Opgave 10
         public List<int> TopMoviesByReviewer(int reviewer)
         {
-
-            var topMovies = RatingsRepository.GetAllMovieRatings()
-                .GroupBy(r => r.Reviewer)
-                .Select(group => new
-                {
-                    Review = group.Key,
-                    Movies = group.OrderBy(r => r.Grade),
-                    Date = group.OrderBy(r => r.Date)
-                });
-
-            return topMovies
-                .Where(grp => grp.Review == reviewer)
-                .Select(grp => grp.Review)
+            return RatingsRepository.GetAllMovieRatings()
+                .Where(r => r.Reviewer == reviewer)
+                .OrderByDescending(r=> r.Grade)
+                .ThenByDescending(r => r.Date)
+                .Select(r => r.Movie)
                 .ToList();
         }
 
+        //Opgave 11
+        public List<int> ReviewersByMovie(int movie)
+        {
+            return RatingsRepository.GetAllMovieRatings()
+                .Where(r => r.Movie == movie)
+                .OrderByDescending(r => r.Grade)
+                .ThenByDescending(r => r.Date)
+                .Select(r => r.Reviewer)
+                .ToList();
+        }
     }
 }
