@@ -141,26 +141,26 @@ namespace MovieRatingsApplication.Core.Services
         }
 
         //Opgave 9
-        //public List<int> TopRatedMovies(int amount)
-        //{
-        //    var topAverageMovie = RatingsRepository.GetAllMovieRatings()
-        //        .GroupBy(r => r.Grade)
-        //        .Select(group => new
-        //        {
-        //            Rating = group.Key,
-        //            TopRatedMovie = group.Count()
-        //        });
-
-        //    double averageAmount = topAverageMovie.Average(grp => grp.TopRatedMovie);
-        //    return topAverageMovie
-        //        .Where(grp => grp.TopRatedMovie == averageAmount)
-        //        .Select(grp => grp.Rating)
-        //        .ToList();
-        //}
+        public List<int> TopRatedMovies(int amount)
+        {
+            return RatingsRepository.GetAllMovieRatings()
+                .GroupBy(r => r.Movie)
+                .Select(grp => new
+                {
+                    Movie = grp.Key,
+                    GradeAvg = grp.Average(x => x.Grade)
+                })
+                .OrderByDescending(grp => grp.GradeAvg)
+                .OrderByDescending(grp => grp.GradeAvg)
+                .Select(grp => grp.Movie)
+                .Take(amount)
+                .ToList();
+        }
 
         //Opgave 10
         public List<int> TopMoviesByReviewer(int reviewer)
         {
+
             var topMovies = RatingsRepository.GetAllMovieRatings()
                 .GroupBy(r => r.Reviewer)
                 .Select(group => new
