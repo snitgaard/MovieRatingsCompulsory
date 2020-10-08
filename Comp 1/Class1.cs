@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MovieRatingsService
+namespace Comp_1
 {
     public class Class1
     {

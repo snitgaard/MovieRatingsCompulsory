@@ -1,11 +1,11 @@
+using Comp1.Core.Interfaces;
+using Comp1.Core.Model;
+using Comp1.Core.Services;
 using FluentAssertions;
 using Moq;
-using MovieRatingsApplication.Core.Interfaces;
-using MovieRatingsApplication.Core.Model;
-using MovieRatingsApplication.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
 using Xunit;
 
 namespace XUnitTestProject
@@ -78,9 +78,9 @@ namespace XUnitTestProject
 
         //Opgave 3
         [Theory]
-        [InlineData(2,3,1)]
-        [InlineData(3,4,2)]
-        [InlineData(4,4,1)]
+        [InlineData(2, 3, 1)]
+        [InlineData(3, 4, 2)]
+        [InlineData(4, 4, 1)]
         public void GetNumberOfRatesByReviewer(int reviewer, int rating, int expected)
         {
             // arrange
@@ -131,7 +131,7 @@ namespace XUnitTestProject
             Assert.Equal(expected, result);
             repoMock.Verify(repo => repo.GetAllMovieRatings(), Times.Once);
         }
-        
+
         //Opgave 5
         [Theory]
         [InlineData(1, 4)]
@@ -273,9 +273,9 @@ namespace XUnitTestProject
 
         //Opgave 10
         [Theory]
-        [InlineData(2, new int[] {1})]
-        [InlineData(3, new int[] {2,3,1})]
-        [InlineData(4, new int[] {1})]
+        [InlineData(2, new int[] { 1 })]
+        [InlineData(3, new int[] { 2, 3, 1 })]
+        [InlineData(4, new int[] { 1 })]
         public void GetTopMoviesByReviewer(int reviewer, int[] expected)
         {
             // arrange

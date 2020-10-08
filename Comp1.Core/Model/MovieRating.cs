@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MovieRatingsApplication.Core.Model
+namespace Comp1.Core.Model
 {
     public class MovieRating
     {
@@ -11,7 +11,7 @@ namespace MovieRatingsApplication.Core.Model
         public int Grade { get; private set; }
         public DateTime Date { get; private set; }
 
-      public MovieRating(int r, int m, int g, DateTime d)
+        public MovieRating(int r, int m, int g, DateTime d)
         {
             Reviewer = r;
             Movie = m;

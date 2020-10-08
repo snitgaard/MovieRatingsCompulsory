@@ -1,13 +1,12 @@
-﻿using MovieRatingsApplication.Core.Interfaces;
-using MovieRatingsApplication.Core.Model;
+﻿using Comp1.Core.Interfaces;
+using Comp1.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace MovieRatingsApplication.Core.Services
+namespace Comp1.Core.Services
 {
-    public class MovieRatingsService
+    public class MovieRatingsService : IMovieRatingsService
     {
         private readonly IMovieRatingsRepository RatingsRepository;
 
@@ -27,6 +26,7 @@ namespace MovieRatingsApplication.Core.Services
                     count++;
                 }
             }
+
             return count;
         }
 
@@ -61,6 +61,7 @@ namespace MovieRatingsApplication.Core.Services
                     count++;
                 }
             }
+
             return count;
         }
 
@@ -90,7 +91,8 @@ namespace MovieRatingsApplication.Core.Services
             var movie5 = RatingsRepository.GetAllMovieRatings()
                 .Where(r => r.Grade == 5)
                 .GroupBy(r => r.Movie)
-                .Select(group => new {
+                .Select(group => new
+                {
                     Movie = group.Key,
                     MovieGrade5 = group.Count()
                 });
@@ -109,10 +111,10 @@ namespace MovieRatingsApplication.Core.Services
             var maxReviews = RatingsRepository.GetAllMovieRatings()
                 .GroupBy(r => r.Reviewer)
                 .Select(group => new
-            {
-                Review = group.Key,
-                MaxReviews = group.Count()
-            });
+                {
+                    Review = group.Key,
+                    MaxReviews = group.Count()
+                });
 
             int max = maxReviews.Max(grp => grp.MaxReviews);
             return maxReviews
@@ -143,7 +145,7 @@ namespace MovieRatingsApplication.Core.Services
         {
             return RatingsRepository.GetAllMovieRatings()
                 .Where(r => r.Reviewer == reviewer)
-                .OrderByDescending(r=> r.Grade)
+                .OrderByDescending(r => r.Grade)
                 .ThenByDescending(r => r.Date)
                 .Select(r => r.Movie)
                 .ToList();

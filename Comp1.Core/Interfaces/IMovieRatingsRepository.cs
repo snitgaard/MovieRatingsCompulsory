@@ -1,10 +1,13 @@
-﻿using MovieRatingsApplication.Core.Model;
+﻿using Comp1.Core.Model;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace MovieRatingsApplication.Core.Interfaces
+namespace Comp1.Core.Interfaces
 {
     public interface IMovieRatingsRepository
     {
+        MovieRating[] Ratings { get; }
         IList<MovieRating> GetAllMovieRatings();
     }
 }

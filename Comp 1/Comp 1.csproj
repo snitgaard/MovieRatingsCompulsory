@@ -2,10 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Comp_1</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="InfraStructure\" />
-  </ItemGroup>
 
 </Project>
